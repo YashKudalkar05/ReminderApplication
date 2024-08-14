@@ -32,17 +32,13 @@ class ReminderActivity : AppCompatActivity() {
         // Set up the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Add a back button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Retrieve the intent extras
         val title = intent.getStringExtra("REMINDER_TITLE")
         val description = intent.getStringExtra("REMINDER_DESCRIPTION")
         val hour = intent.getIntExtra("REMINDER_HOUR", -1)
         val minute = intent.getIntExtra("REMINDER_MINUTE", -1)
-
-        // Debugging the received hour and minute values
-        Log.d("ReminderActivity", "Received hour: $hour")
-        Log.d("ReminderActivity", "Received minute: $minute")
 
         // Get the TextViews from the layout
         val tvReminderTitle = findViewById<TextView>(R.id.tvReminderTitle)
@@ -74,11 +70,6 @@ class ReminderActivity : AppCompatActivity() {
         // Calculate the time difference
         val timeDifference = reminderTime.timeInMillis - currentTime.timeInMillis
 
-        // Log the current and reminder times for debugging
-        Log.d("ReminderActivity", "Current time: ${currentTime.time}")
-        Log.d("ReminderActivity", "Reminder time: ${reminderTime.time}")
-        Log.d("ReminderActivity", "Time difference in minutes: ${timeDifference / 60000}")
-
         // If less than or equal to 1 hour remains, show the notification
         if (timeDifference in 0..3600000) { // 1 hour = 3600000 milliseconds
             createNotificationChannel()
@@ -94,9 +85,6 @@ class ReminderActivity : AppCompatActivity() {
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
 
-        // Log notification details
-        Log.d("ReminderActivity", "Creating notification with title: $title, description: $description")
-
         // Create the notification
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground) // Replace with your own icon
@@ -108,20 +96,15 @@ class ReminderActivity : AppCompatActivity() {
             .setAutoCancel(true)
             .build()
 
-        // Log notification creation
-        Log.d("ReminderActivity", "Showing notification")
-
         // Show the notification
         NotificationManagerCompat.from(this).notify(1, notification)
 
-        // Log notification display
-        Log.d("ReminderActivity", "Notification displayed")
     }
 
 
 
     private fun createNotificationChannel() {
-        // Create the notification channel for API 26+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Reminder Channel"
             val descriptionText = "Channel for reminder notifications"
@@ -136,7 +119,7 @@ class ReminderActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu) // Ensure menu_main.xml is the correct menu resource
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
@@ -155,7 +138,6 @@ class ReminderActivity : AppCompatActivity() {
                 true
             }
             android.R.id.home -> {
-                // Handle the back button click in the toolbar
                 onBackPressed()
                 true
             }

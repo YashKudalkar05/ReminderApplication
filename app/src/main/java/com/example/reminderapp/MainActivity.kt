@@ -58,9 +58,7 @@ class MainActivity : AppCompatActivity() {
             val hour = timePicker.hour
             val minute = timePicker.minute
 
-            // Debugging the hour and minute values
-            Log.d("MainActivity", "TimePicker hour: $hour")
-            Log.d("MainActivity", "TimePicker minute: $minute")
+
             val intent = Intent(this, ReminderActivity::class.java).apply {
                 putExtra("REMINDER_TITLE", title)
                 putExtra("REMINDER_DESCRIPTION", description)
