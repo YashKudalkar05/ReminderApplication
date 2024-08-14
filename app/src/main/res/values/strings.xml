@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ReminderApp</string>
+    <string name="reminder_details">%1$s\nTime: %2$s</string>
+    <string name="app_description">This is a simple reminder</string>
+</resources>
